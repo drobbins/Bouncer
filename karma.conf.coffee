@@ -1,19 +1,32 @@
 module.exports = (config) ->
     config.set
+        autoWatch: true
         basePath: ""
+        files: [
+          # General Dependencies
+            "bower_components/angular/angular.js"
+            "bower_components/angular-ui-router/release/angular-ui-router.js"
+            "bower_components/angular-resource/angular-resource.js"
+            "bower_components/angular-mocks/angular-mocks.js"
+          # My Files
+            "src/**/*.coffee"
+            "test/**/*.coffee"
+          # Additional Test Files
+            "node_modules/chai/chai.js"
+        ]
         frameworks: ["mocha"]
-        preprocessors:
-            "**/*.coffee": ["coffee"]
         reporters: ['progress']
-        coffeePreprocessor:
-            options:
-                bare: true
-                sourceMap: true
-            transformPath: (path) -> path.replace /\.coffee$/, ".js"
         port: 9876
         colors: true
         logLevel: config.LOG_INFO
         autoWatch: true
         browsers: ['Chrome']
         singleRun: false
+        preprocessors:
+            "**/*.coffee": ["coffee"]
+        coffeePreprocessor:
+            options:
+                bare: true
+                sourceMap: true
+            transformPath: (path) -> path.replace /\.coffee$/, ".js"
 
