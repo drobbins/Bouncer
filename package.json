@@ -1,0 +1,28 @@
+{
+  "name": "Bouncer",
+  "version": "0.0.0",
+  "description": "Bouncer is bouncing",
+  "private": true,
+  "main": "build/app.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/robbinsd/bouncer"
+  },
+  "keywords": [
+    "Bounce",
+    "MongoDB"
+  ],
+  "author": "David Robbins",
+  "license": "ISC",
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.1.2",
+    "mocha": "^1.17.1",
+    "karma": "^0.12.0",
+    "karma-mocha": "^0.1.1",
+    "karma-coffee-preprocessor": "^0.2.0",
+    "chai": "^1.9.0"
+  }
+}
