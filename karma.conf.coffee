@@ -11,10 +11,8 @@ module.exports = (config) ->
           # My Files
             "src/**/*.coffee"
             "test/**/*.coffee"
-          # Additional Test Files
-            "node_modules/chai/chai.js"
         ]
-        frameworks: ["mocha"]
+        frameworks: ["mocha", "chai"]
         reporters: ['progress']
         port: 9876
         colors: true
