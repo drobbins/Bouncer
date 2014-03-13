@@ -30,3 +30,5 @@ angular.module "Bouncer"
                         id: "@id"
         updateCollection: (collection) ->
             $http.put "#{credentials.endpoint}/#{collection.name}", collection
+        users: () ->
+            $resource "#{credentials.endpoint}/bounce.users/:id"

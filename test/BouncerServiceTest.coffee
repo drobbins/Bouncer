@@ -134,3 +134,43 @@ describe "Unit Tests for BouncerService", () ->
                 .respond 200
             documents.delete document
             httpBackend.flush()
+
+    describe "Bouncer Users", () ->
+
+        Users = {}
+
+        beforeEach inject ($injector) ->
+            httpBackend = $injector.get "$httpBackend"
+            Bouncer = $injector.get "Bouncer"
+            Bouncer.credentials credentials
+            Users = Bouncer.users()
+
+        afterEach () ->
+            httpBackend.verifyNoOutstandingExpectation()
+            httpBackend.verifyNoOutstandingRequest()
+
+        it "Get users", () ->
+            httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users", null, headersCheck
+                .respond 200, []
+            users = Users.query () ->
+                users.should.exist
+            httpBackend.flush()
+
+        it "Get user", () ->
+            userId = "123"
+            httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users/#{userId}", null, headersCheck
+                .respond 200, {}
+            user = Users.get id: userId, () ->
+                user.should.be.an.instanceof Users
+            httpBackend.flush()
+
+        it "Register user", () ->
+            user =
+                username: "tester"
+                password: "testing"
+            httpBackend.expect "POST", "#{credentials.endpoint}/bounce.users", user, headersCheck
+                .respond 201
+            user = Users.save user, () ->
+                user.should.be.an.instanceof Users
+            httpBackend.flush()
+
