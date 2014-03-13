@@ -104,3 +104,33 @@ describe "Unit Tests for BouncerService", () ->
             doc = documents.get document, () ->
                 doc.should.exist
             httpBackend.flush()
+
+        it "Get document field", () ->
+            field = "name"
+            httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}/#{document.id}/#{field}", null, headersCheck
+                .respond 200, ""
+            field = documents.get
+                id: document.id
+                field: field
+                () ->
+                    field.should.exist
+            httpBackend.flush()
+
+        it "Add document to collection", () ->
+            httpBackend.expect "POST", "#{credentials.endpoint}/#{collection.name}", document, headersCheck
+                .respond 201
+            doc = documents.save document, () ->
+                doc.should.be.an.instanceof documents #i.e. a resource
+            httpBackend.flush()
+
+        it "Update document", () ->
+            httpBackend.expect "PUT", "#{credentials.endpoint}/#{collection.name}/#{document.id}", document, headersCheck
+                .respond 200
+            documents.update document
+            httpBackend.flush()
+
+        it "Delete document", () ->
+            httpBackend.expect "DELETE", "#{credentials.endpoint}/#{collection.name}/#{document.id}", null, headersCheck
+                .respond 200
+            documents.delete document
+            httpBackend.flush()
