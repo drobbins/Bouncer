@@ -1,7 +1,7 @@
 module.exports = (config) ->
     config.set
         autoWatch: true
-        basePath: ""
+        basePath: "../"
         files: [
           # General Dependencies
             "bower_components/angular/angular.js"
