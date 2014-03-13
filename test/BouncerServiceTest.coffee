@@ -1,4 +1,23 @@
-describe "Unit: BouncerService", () ->
+describe "Unit Tests for BouncerService", () ->
+
+  # Various test data
+    collection =
+        name: "myCollection"
+    credentials =
+        username: "test"
+        password: "abc123"
+        endpoint: "http://localhost:27080"
+    document =
+        id: "123"
+
+  # Holders for injected items
+    Bouncer = {}
+    httpBackend = {}
+    documents = {}
+
+  # Convenience Functions
+    headersCheck = (headers) ->
+        headers["Authorization"] == "Basic #{btoa(credentials.username + ":" + credentials.password)}"
 
     beforeEach angular.mock.module "Bouncer"
 
@@ -18,18 +37,6 @@ describe "Unit: BouncerService", () ->
         retrievedCredentials.endpoint.should.equal credentials.endpoint
 
     describe "Collections API", () ->
-
-        Bouncer = {}
-        httpBackend = {}
-        credentials =
-            username: "test"
-            password: "abc123"
-            endpoint: "http://localhost:27080"
-        headersCheck = (headers) ->
-            headers["Authorization"] == "Basic #{btoa(credentials.username + ":" + credentials.password)}"
-
-        collection =
-            name: "myCollection"
 
         beforeEach inject ($injector) ->
             httpBackend = $injector.get "$httpBackend"
@@ -73,24 +80,11 @@ describe "Unit: BouncerService", () ->
 
     describe "Documents API", () ->
 
-        Bouncer = {}
-        httpBackend = {}
-        credentials =
-            username: "test"
-            password: "abc123"
-            endpoint: "http://localhost:27080"
-        headersCheck = (headers) ->
-            headers["Authorization"] == "Basic #{btoa(credentials.username + ":" + credentials.password)}"
-
-        collection =
-            name: "myCollection"
-        collectionResource = {}
-
         beforeEach inject ($injector) ->
             httpBackend = $injector.get "$httpBackend"
             Bouncer = $injector.get "Bouncer"
             Bouncer.credentials credentials
-            collectionResource = Bouncer.collection(collection.name)
+            documents = Bouncer.collection(collection.name)
 
         afterEach () ->
             httpBackend.verifyNoOutstandingExpectation()
@@ -100,6 +94,13 @@ describe "Unit: BouncerService", () ->
             query = {}
             httpBackend.expect "POST", "#{credentials.endpoint}/#{collection.name}/query", query, headersCheck
                 .respond 200, []
-            documents = collectionResource.query query, () ->
-                documents.length.should.equal 0
+            docs = documents.query query, () ->
+                docs.length.should.equal 0
+            httpBackend.flush()
+
+        it "Get document", () ->
+            httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}/#{document.id}", null, headersCheck
+                .respond 200, {}
+            doc = documents.get document, () ->
+                doc.should.exist
             httpBackend.flush()

@@ -16,13 +16,13 @@ angular.module "Bouncer"
             else
                 $http.get credentials.endpoint
         collection: (collection) -> # Get a collection resource
-            col = $resource "#{credentials.endpoint}/#{collection}/:document", null,
+            col = $resource "#{credentials.endpoint}/#{collection}/:id", null,
                 stats:
                     method: "GET"
                 query:
                     method: "POST"
                     isArray: true
                     params:
-                        document: "query"
+                        id: "query"
         updateCollection: (collection) ->
             $http.put "#{credentials.endpoint}/#{collection.name}", collection
