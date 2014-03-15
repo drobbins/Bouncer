@@ -6,7 +6,7 @@ describe "UserListController", () ->
 
     beforeEach () ->
         angular.mock.module "Bouncer"
-        extractController = inject ($injector, $controller) ->
+        inject ($injector, $controller) ->
             scope = $injector.get "$rootScope"
             UserListController = $controller "UserListController",
                 $scope: scope

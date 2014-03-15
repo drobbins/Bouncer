@@ -12,7 +12,7 @@ module.exports = (config) ->
             "src/**/*.coffee"
             "test/**/*.coffee"
         ]
-        frameworks: ["mocha", "chai"]
+        frameworks: ["mocha", "sinon-chai"]
         reporters: ['progress']
         port: 9876
         colors: true
