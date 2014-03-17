@@ -59,6 +59,10 @@ module.exports = (grunt) ->
                 options:
                     configFile: "test/protractor.conf.js"
 
+        karma:
+            unit:
+                configFile: "test/karma.conf.coffee"
+
     grunt.loadNpmTasks task for task in [
         "grunt-contrib-coffee"
         "grunt-contrib-watch"
@@ -68,6 +72,7 @@ module.exports = (grunt) ->
         "grunt-contrib-clean"
         "grunt-usemin"
         "grunt-protractor-runner"
+        "grunt-karma"
     ]
 
     grunt.registerTask "build", [
@@ -88,4 +93,8 @@ module.exports = (grunt) ->
         "build"
         "connect:dist"
         "protractor:all"
+    ]
+
+    grunt.registerTask "test", [
+        "karma:unit"
     ]

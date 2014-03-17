@@ -5,7 +5,8 @@
   "private": true,
   "main": "build/app.js",
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start test/karma.conf.coffee --single-run --browsers PhantomJS"
+    "test": "./node_modules/karma/bin/karma start test/karma.conf.coffee --single-run --browsers PhantomJS",
+    "e2e": "grunt e2e"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "grunt-contrib-coffee": "^0.10.1",
     "grunt-contrib-concat": "^0.3.0",
     "grunt-contrib-clean": "^0.5.0",
-    "grunt-protractor-runner": "^0.2.4"
+    "grunt-protractor-runner": "^0.2.4",
+    "grunt-karma": "~0.7.1"
   }
 }
