@@ -2,6 +2,9 @@ angular.module "Bouncer", ["ngResource", "ui.router"]
     .config ($stateProvider, $urlRouterProvider) ->
         $urlRouterProvider.otherwise "/"
         $stateProvider
+            .state "Home",
+                url: "/"
+                template: ""
             .state "UserList",
                 url: "/users"
                 template: "Hello World"
