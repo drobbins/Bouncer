@@ -1,4 +1,9 @@
-angular.module "Bouncer", ["ngResource", "ui.router"]
+try
+    angular.module "BouncerTemplates"
+catch
+    angular.module "BouncerTemplates", []
+
+angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
     .config ($stateProvider, $urlRouterProvider) ->
         $urlRouterProvider.otherwise "/"
         $stateProvider
@@ -7,7 +12,7 @@ angular.module "Bouncer", ["ngResource", "ui.router"]
                 template: ""
             .state "UserList",
                 url: "/users"
-                template: "Hello World"
+                templateUrl: "templates/userlist.html"
                 controller: "UserListController"
                 resolve:
                     users: "UserListResolver"

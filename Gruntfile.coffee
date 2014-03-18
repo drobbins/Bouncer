@@ -27,7 +27,7 @@ module.exports = (grunt) ->
 
         concat:
             scripts:
-                src: [".tmp/coffee/*.js"]
+                src: [".tmp/**/*.js"]
                 dest: "build/bouncer.js"
 
         copy:
@@ -45,6 +45,16 @@ module.exports = (grunt) ->
                         js: ["concat"]
                         css: ["concat"]
                     post: {}
+
+        html2js:
+            options:
+                base: ""
+                fileHeaderString: "(function () {"
+                fileFooterString: "})();"
+            bouncer:
+                module: "BouncerTemplates"
+                src: ["templates/**/*.html"]
+                dest: ".tmp/templates.js"
 
         usemin:
             html: "build/index.html"
@@ -74,9 +84,11 @@ module.exports = (grunt) ->
         "grunt-usemin"
         "grunt-protractor-runner"
         "grunt-karma"
+        "grunt-html2js"
     ]
 
     grunt.registerTask "build", [
+        "html2js"
         "copy"
         "coffee:build"
         "useminPrepare"
