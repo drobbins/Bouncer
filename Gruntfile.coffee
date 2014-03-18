@@ -43,6 +43,7 @@ module.exports = (grunt) ->
                 flow:
                     steps:
                         js: ["concat"]
+                        css: ["concat"]
                     post: {}
 
         usemin:
