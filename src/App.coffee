@@ -4,7 +4,7 @@ catch
     angular.module "BouncerTemplates", []
 
 angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
-    .config ($stateProvider, $urlRouterProvider) ->
+    .config ($stateProvider, $urlRouterProvider, BouncerResolvers) ->
         $urlRouterProvider.otherwise "/"
         $stateProvider
             .state "Home",
@@ -15,7 +15,7 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 templateUrl: "templates/userlist.html"
                 controller: "UserListController"
                 resolve:
-                    users: "UserListResolver"
+                    users: BouncerResolvers.userListResolver
             .state "Credentials",
                 url: "/credentials"
                 templateUrl: "templates/credentials.html"

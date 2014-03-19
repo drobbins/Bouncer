@@ -1,5 +1,5 @@
 angular.module "Bouncer"
-    .factory "UserListResolver", (Bouncer) ->
-        () ->
+    .constant "BouncerResolvers",
+        userListResolver: (Bouncer) ->
             Users = Bouncer.users()
             Users.query().$promise

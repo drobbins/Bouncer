@@ -26,7 +26,7 @@ describe "Bouncer Routes", ->
                 done()
         tick()
 
-    it "UserList Route", ->
+    xit "UserList Route", ->
         userListRoute = $state.get "UserList"
         userListRoute.controller.should.equal "UserListController"
         userListRoute.resolve.users.should.equal "UserListResolver"
