@@ -1,10 +1,11 @@
 angular.module "Bouncer"
-.service "Bouncer", ($http, $resource) ->
+.service "Bouncer", ($http, $resource, $rootScope) ->
     credentials = {}
     api =
         credentials: (_) ->
             if _
                 credentials = _
+                $rootScope.$broadcast "bouncer.credentialsUpdated", api.credentials() # Strip out password
                 $http.defaults.headers.common.Authorization = "Basic #{btoa(credentials.username + ":" + credentials.password)}"
                 api
             else

@@ -36,6 +36,16 @@ describe "Unit Tests for BouncerService", () ->
         retrievedCredentials.username.should.equal credentials.username
         retrievedCredentials.endpoint.should.equal credentials.endpoint
 
+    it "Setting Credentials broadcasts bouncer.credentialsUpdated", inject (Bouncer, $rootScope) ->
+        credentials =
+            username: "test"
+            password: "abc123"
+            endpoint: "http://localhost:27080"
+        listener = sinon.stub()
+        $rootScope.$on "bouncer.credentialsUpdated", listener
+        Bouncer.credentials credentials
+        listener.should.have.been.called
+
     describe "Collections API", () ->
 
         beforeEach inject ($injector) ->

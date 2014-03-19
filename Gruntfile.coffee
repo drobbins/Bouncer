@@ -13,7 +13,7 @@ module.exports = (grunt) ->
             dist:
                 options:
                     livereload: 8081
-                files: ["index.html", "src/**/*", "test/**/*"]
+                files: ["index.html", "src/**/*", "test/**/*", "templates/**/*"]
                 tasks: ["build"]
 
         coffee:
