@@ -7,8 +7,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="user in users">
-            <td ng-bind="username"></td>
+        <tr ng-repeat="user in users._embedded.users">
+            <td ng-bind="user.username"></td>
             <td>
                 Action Buttons!
             </td>
