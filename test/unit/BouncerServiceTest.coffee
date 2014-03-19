@@ -161,7 +161,7 @@ describe "Unit Tests for BouncerService", () ->
 
         it "Get users", () ->
             httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users", null, headersCheck
-                .respond 200, []
+                .respond 200, {}
             users = Users.query () ->
                 users.should.exist
             httpBackend.flush()

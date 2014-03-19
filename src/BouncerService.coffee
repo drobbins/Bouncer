@@ -32,4 +32,7 @@ angular.module "Bouncer"
         updateCollection: (collection) ->
             $http.put "#{credentials.endpoint}/#{collection.name}", collection
         users: () ->
-            $resource "#{credentials.endpoint}/bounce.users/:id"
+            $resource "#{credentials.endpoint}/bounce.users/:id", null,
+                query: # Bounce returns userlist as an Object
+                    method: "GET"
+                    isArray: false
