@@ -1,1 +1,17 @@
 <h2>User List</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users">
+            <td ng-bind="username"></td>
+            <td>
+                Action Buttons!
+            </td>
+        </tr>
+    </tbody>
+</table>
