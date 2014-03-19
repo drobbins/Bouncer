@@ -37,6 +37,11 @@ module.exports = (grunt) ->
             index:
                 src: "index.html"
                 dest: "build/index.html"
+            glyphicons:
+                src: "bower_components/bootstrap/fonts/*"
+                dest: "build/fonts/"
+                flatten: true
+                expand: true
 
         useminPrepare:
             html: "build/index.html"
