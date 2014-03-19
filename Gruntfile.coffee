@@ -15,6 +15,9 @@ module.exports = (grunt) ->
                     livereload: 8081
                 files: ["index.html", "src/**/*", "test/**/*", "templates/**/*"]
                 tasks: ["build"]
+            e2e:
+                files: ["index.html", "src/**/*", "test/**/*", "templates/**/*"]
+                tasks: ["build", "protractor:all"]
 
         coffee:
             build:
@@ -106,6 +109,7 @@ module.exports = (grunt) ->
         "build"
         "connect:dist"
         "protractor:all"
+        "watch:e2e"
     ]
 
     grunt.registerTask "test", [
