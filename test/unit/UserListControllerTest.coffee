@@ -1,20 +1,16 @@
-describe "UserListController", () ->
+describe "UserListController", ->
 
-    scope = {}
-    UserListController = {}
+    $scope = UserListController = null
     users = ["user1", "user2"]
 
-    beforeEach () ->
+    beforeEach ->
         angular.mock.module "Bouncer"
-        inject ($injector, $controller) ->
-            scope = $injector.get "$rootScope"
+        inject ($rootScope, $controller) ->
+            #scope = $injector.get "$rootScope"
+            $scope = $rootScope.$new()
             UserListController = $controller "UserListController",
-                $scope: scope
+                $scope: $scope
                 users: users
 
-    it "Exists", () ->
-        expect UserListController
-            .not.to.equal null
-
-    it "Places resolved users on the $scope", () ->
-        scope.users.should.equal users
+    it "Places resolved users on the $scope", ->
+        $scope.users.should.equal users
