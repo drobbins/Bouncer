@@ -16,6 +16,10 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 controller: "UserListController"
                 resolve:
                     users: BouncerResolvers.userListResolver
+            .state "UserAdd",
+                url: "/users/new"
+                templateUrl: "templates/useradd.html"
+                controller: "UserAddController"
             .state "Credentials",
                 url: "/credentials"
                 templateUrl: "templates/credentials.html"
