@@ -1,6 +1,7 @@
 angular.module "Bouncer"
 .service "Bouncer", ($http, $resource, $rootScope) ->
-    credentials = {}
+    credentials =
+        endpoint: "http://localhost:27080"
     api =
         credentials: (_) ->
             if _

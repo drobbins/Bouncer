@@ -17,10 +17,9 @@ describe "Credentials Controller", ->
     it "Exists", ->
         CredentialsController.should.exist
 
-    it "Exposes empty credentials", ->
-        $scope.credentials.should.eql
-            username: credentials.nothing
-            endpoint: credentials.nothing
+    it "Provides default endpoint", ->
+        expect($scope.credentials.username).to.be.undefined
+        expect($scope.credentials.endpoint).to.equal "http://localhost:27080"
 
     it "Exposes set credentials", ->
         $privateScope = { $on: -> }
@@ -44,9 +43,8 @@ describe "Credentials Controller", ->
             listener.should.have.been.called
 
     it "Updates $scope.credentials on bouncer.credentialsUpdated events", ->
-        $scope.credentials.should.eql
-            username: credentials.nothing
-            endpoint: credentials.nothing
+        expect($scope.credentials.username).to.be.undefined
+        expect($scope.credentials.endpoint).to.equal "http://localhost:27080"
         Bouncer.credentials credentials
         $scope.credentials.username.should.equal credentials.username
         $scope.credentials.endpoint.should.equal credentials.endpoint
