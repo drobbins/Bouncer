@@ -20,3 +20,5 @@ Then one of these:
 * ``grunt test``
 * ``protractor test/protractor.conf.js``
 * ``karma start test/karma.conf.coffee``
+
+E2E tests expect that you have Bounce running @ ``http://localhost:27080`` against the ``bounce-test`` database (e.g. from your Bounce folder, ``node bin/bounce.js --connection-string mongodb://localhost/bounce-test``)

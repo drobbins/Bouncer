@@ -17,7 +17,7 @@ module.exports = (grunt) ->
                 tasks: ["build"]
             e2e:
                 files: ["index.html", "src/**/*", "test/**/*", "templates/**/*"]
-                tasks: ["build", "protractor:all"]
+                tasks: ["build", "mongoimport", "protractor:all"]
 
         coffee:
             build:
@@ -82,6 +82,20 @@ module.exports = (grunt) ->
             unit:
                 configFile: "test/karma.conf.coffee"
 
+        mongoimport:
+            options:
+                db: "bounce-test"
+                stopOnError: false
+                collections: [
+                    {
+                        name: "bounce.users"
+                        type: "json"
+                        file: "test/fixtures/bounce.users.json"
+                        drop: true
+                    }
+                ]
+
+
     grunt.loadNpmTasks task for task in [
         "grunt-contrib-coffee"
         "grunt-contrib-watch"
@@ -93,6 +107,7 @@ module.exports = (grunt) ->
         "grunt-protractor-runner"
         "grunt-karma"
         "grunt-html2js"
+        "grunt-mongoimport"
     ]
 
     grunt.registerTask "build", [
@@ -112,6 +127,7 @@ module.exports = (grunt) ->
 
     grunt.registerTask "e2e", [
         "build"
+        "mongoimport"
         "connect:dist"
         "protractor:all"
         "watch:e2e"
