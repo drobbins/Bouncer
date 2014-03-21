@@ -1,0 +1,22 @@
+<div class="pull-right">
+    <a ui-sref="UserAdd" class="btn btn-default">
+      <span class="glyphicon glyphicon-plus"></span> New User
+    </a>
+</div>
+<h2>User List</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users._embedded.users">
+            <td ng-bind="user.username"></td>
+            <td>
+                Action Buttons!
+            </td>
+        </tr>
+    </tbody>
+</table>

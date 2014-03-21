@@ -1,0 +1,3 @@
+{ "username" : "TestBob", "password" : "$2a$08$QemoQHy6hjnkyic3pPDaYOPSeKnjMo.JXevy8KhZyp2goEZwnitTi", "_id" : { "$oid" : "532c5aabd2ce065835bc0af6" } }
+{ "username" : "TestFred", "password" : "$2a$08$a85kYFloL6xJFZ2IcEmCxO5aFl7czXIXZtEEriCPa4lQaCdIscvCO", "_id" : { "$oid" : "532c5ab6d2ce065835bc0af7" } }
+{ "username" : "TestSal", "password" : "$2a$08$LqvD4GW914evne0P8Pp6c.ilfyVBYUy/LWzuHOkF2GqM6TfCwuMb6", "_id" : { "$oid" : "532c5ac3d2ce065835bc0af8" } }
