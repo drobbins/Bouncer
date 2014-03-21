@@ -39,3 +39,7 @@ describe "Bouncer Routes", ->
         userAddRoute = $state.get "UserAdd"
         userAddRoute.controller.should.equal "UserAddController"
 
+    it "UserView Route", ->
+        userViewRoute = $state.get "UserView"
+        userViewRoute.controller.should.equal "UserViewController"
+        userViewRoute.resolve.user.should.equal BouncerResolvers.userResolver

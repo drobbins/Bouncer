@@ -20,3 +20,16 @@ describe "Resolvers", ->
             resolved = invoke BouncerResolvers.userListResolver
             resolved.should.equal promisedValue
             spy.should.have.been.called
+
+    describe "UserViewResolver", () ->
+
+        it "Requests an individual user from BouncerService", () ->
+            promisedValue = username: "TestBob"
+            spy = sinon.stub().returns $promise: promisedValue
+            inject (Bouncer) ->
+                sinon.stub Bouncer, 'users'
+                    .returns
+                        get: spy
+            resolved = invoke BouncerResolvers.userResolver
+            resolved.should.equal promisedValue
+            spy.should.have.been.called
