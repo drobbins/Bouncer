@@ -54,3 +54,8 @@ describe "Bouncer Routes", ->
             collectionListRoute = $state.get "CollectionList"
             collectionListRoute.controller.should.equal "CollectionListController"
             collectionListRoute.resolve.collections.should.equal BouncerResolvers.collectionListResolver
+
+        it "View Collection", ->
+            collectionViewRoute = $state.get "CollectionView"
+            collectionViewRoute.controller.should.equal "CollectionViewController"
+            collectionViewRoute.resolve.collection.should.equal BouncerResolvers.collectionResolver

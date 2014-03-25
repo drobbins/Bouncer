@@ -37,3 +37,9 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 controller: "CollectionListController"
                 resolve:
                     collections: BouncerResolvers.collectionListResolver
+            .state "CollectionView",
+                url: "/:name"
+                templateUrl: "templates/collectionview.html"
+                controller: "CollectionViewController"
+                resolve:
+                    collection: BouncerResolvers.collectionResolver

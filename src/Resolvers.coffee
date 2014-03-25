@@ -6,3 +6,5 @@ angular.module "Bouncer"
             Bouncer.users().get(id: $stateParams.username).$promise
         collectionListResolver: (Bouncer) ->
             Bouncer.collections().query().$promise
+        collectionResolver: ($stateParams, Bouncer) ->
+            Bouncer.collection($stateParams.name).stats().$promise
