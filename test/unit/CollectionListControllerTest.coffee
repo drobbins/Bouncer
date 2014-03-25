@@ -13,3 +13,12 @@ describe "CollectionListController", ->
 
     it "Places resolved collections on the $scope", ->
         $scope.collections.should.equal collections
+
+    it "Provides a function for deleting collections", ->
+        stub = sinon.stub()
+        inject (Bouncer) ->
+            sinon.stub Bouncer, "collection"
+                .returns
+                    remove: stub
+        $scope.removeCollection "mycollection"
+        stub.should.have.been.called
