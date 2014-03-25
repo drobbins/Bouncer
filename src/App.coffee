@@ -7,9 +7,6 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
     .config ($stateProvider, $urlRouterProvider, BouncerResolvers) ->
         $urlRouterProvider.otherwise "/"
         $stateProvider
-            .state "Home",
-                url: "/"
-                template: ""
             .state "UserList",
                 url: "/users"
                 templateUrl: "templates/userlist.html"
@@ -34,3 +31,9 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 url: "/new"
                 templateUrl: "templates/collectionadd.html"
                 controller: "CollectionAddController"
+            .state "CollectionList",
+                url: "/"
+                templateUrl: "templates/collectionlist.html"
+                controller: "CollectionListController"
+                resolve:
+                    collections: BouncerResolvers.collectionListResolver

@@ -33,3 +33,16 @@ describe "Resolvers", ->
             resolved = invoke BouncerResolvers.userResolver
             resolved.should.equal promisedValue
             spy.should.have.been.called
+
+    describe "CollectionListResolver", ->
+
+        it "Requests a list of collections from BouncerService", ->
+            promisedValue = name: "MyCollection"
+            spy = null
+            inject (Bouncer) ->
+                spy = sinon.stub Bouncer, 'collections'
+                    .returns promisedValue
+            resolved = invoke BouncerResolvers.collectionListResolver
+            resolved.should.equal promisedValue
+            spy.should.have.been.called
+
