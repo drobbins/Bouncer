@@ -5,4 +5,4 @@ angular.module "Bouncer"
         userResolver: ($stateParams, Bouncer) ->
             Bouncer.users().get(id: $stateParams.username).$promise
         collectionListResolver: (Bouncer) ->
-            Bouncer.collections()
+            Bouncer.collections().query().$promise

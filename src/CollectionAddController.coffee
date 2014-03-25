@@ -1,4 +1,4 @@
 angular.module "Bouncer"
     .controller "CollectionAddController", ($scope, Bouncer) ->
         $scope.addCollection = (collection) ->
-            Bouncer.collections collection
+            Bouncer.collections().save collection

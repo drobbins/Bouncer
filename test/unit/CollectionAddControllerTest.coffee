@@ -6,7 +6,8 @@ describe "CollectionAddController", ->
         module "Bouncer"
         module
             Bouncer:
-                collections: stub
+                collections: sinon.stub().returns
+                    save: stub
         inject ($rootScope, $controller) ->
             $scope = $rootScope.$new()
             CollectionAddController = $controller "CollectionAddController",

@@ -38,10 +38,11 @@ describe "Resolvers", ->
 
         it "Requests a list of collections from BouncerService", ->
             promisedValue = name: "MyCollection"
-            spy = null
+            spy = sinon.stub().returns $promise: promisedValue
             inject (Bouncer) ->
-                spy = sinon.stub Bouncer, 'collections'
-                    .returns promisedValue
+                sinon.stub Bouncer, 'collections'
+                    .returns
+                        query: spy
             resolved = invoke BouncerResolvers.collectionListResolver
             resolved.should.equal promisedValue
             spy.should.have.been.called

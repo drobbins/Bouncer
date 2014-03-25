@@ -12,11 +12,11 @@ angular.module "Bouncer"
             else
                 username: credentials.username
                 endpoint: credentials.endpoint
-        collections: (collection) ->
-            if collection
-                $http.post credentials.endpoint, collection
-            else
-                $http.get credentials.endpoint
+        collections: ->
+            $resource "#{credentials.endpoint}", null,
+                query: # Bounce returns collectionlist as an Object
+                    method: "GET"
+                    isArray: false
         collection: (collection) -> # Get a collection resource
             col = $resource "#{credentials.endpoint}/#{collection}/:id/:field", null,
                 stats:
