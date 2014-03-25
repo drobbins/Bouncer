@@ -6,14 +6,13 @@ describe "CollectionAddController", ->
         module "Bouncer"
         module
             Bouncer:
-                collections: sinon.stub().returns
-                    save: stub
+                collections: sinon.stub().returns save: stub
         inject ($rootScope, $controller) ->
             $scope = $rootScope.$new()
             CollectionAddController = $controller "CollectionAddController",
                 $scope: $scope
 
     it "Provides a function to add a collection", ->
-        $scope.addCollection
-            name: "mycollection"
-        stub.should.have.been.called
+        collection = name: "mycollection"
+        $scope.addCollection collection
+        stub.should.have.been.calledWith collection
