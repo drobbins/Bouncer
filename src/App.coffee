@@ -30,3 +30,7 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 url: "/credentials"
                 templateUrl: "templates/credentials.html"
                 controller: "CredentialsController"
+            .state "CollectionAdd",
+                url: "/new"
+                templateUrl: "templates/collectionadd.html"
+                controller: "CollectionAddController"

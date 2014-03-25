@@ -43,3 +43,14 @@ describe "Bouncer Routes", ->
         userViewRoute = $state.get "UserView"
         userViewRoute.controller.should.equal "UserViewController"
         userViewRoute.resolve.user.should.equal BouncerResolvers.userResolver
+
+    describe "Collection Routes", ->
+
+        it "Add Collection", ->
+            collectionAddRoute = $state.get "CollectionAdd"
+            collectionAddRoute.controller.should.equal "CollectionAddController"
+
+        xit "List Collections", ->
+            collectionListRoute = $state.get "CollectionListRoute"
+            collectionListRoute.controller.should.equal "CollectionListController"
+            collectionListRoute.resolve.collections.should.equal BouncerResolvers.collectionListResolver
