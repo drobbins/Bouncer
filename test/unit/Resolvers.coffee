@@ -8,7 +8,7 @@ describe "Resolvers", ->
         BouncerResolvers = _BouncerResolvers_
         invoke = $injector.invoke
 
-    describe "UserListResolver", () ->
+    describe "UserListResolver", ->
 
         it "Requests list of users from BouncerService", () ->
             promisedValue = ["user1", "user2"]
@@ -21,7 +21,7 @@ describe "Resolvers", ->
             resolved.should.equal promisedValue
             spy.should.have.been.called
 
-    describe "UserViewResolver", () ->
+    describe "UserViewResolver", ->
 
         it "Requests an individual user from BouncerService", () ->
             promisedValue = username: "TestBob"
