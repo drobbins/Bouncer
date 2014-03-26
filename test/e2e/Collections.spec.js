@@ -21,6 +21,11 @@ describe("The collections UI", function () {
         expect(element(by.repeater("collection in collections._embedded.collections").row(0).column("collection.name")).getText()).toBe(collectionName);
     });
 
+    it("allows viewing a collection's details.", function () {
+        $("[title=\"View details about this collection\"]").click();
+        expect(element(by.binding("collection.name")).getText()).toBe("MyTestCollection");
+    });
+
     it("allows removing a collection.", function () {
         $("[title=\"Remove this collection\"]").click();
         expect(element.all(by.repeater("collection in collections._embedded.collections")).count()).toBe(0);
