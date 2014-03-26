@@ -8,7 +8,7 @@ describe "Resolvers", ->
         BouncerResolvers = _BouncerResolvers_
         invoke = $injector.invoke
 
-    describe "UserListResolver", () ->
+    describe "UserListResolver", ->
 
         it "Requests list of users from BouncerService", () ->
             promisedValue = ["user1", "user2"]
@@ -21,7 +21,7 @@ describe "Resolvers", ->
             resolved.should.equal promisedValue
             spy.should.have.been.called
 
-    describe "UserViewResolver", () ->
+    describe "UserViewResolver", ->
 
         it "Requests an individual user from BouncerService", () ->
             promisedValue = username: "TestBob"
@@ -31,5 +31,31 @@ describe "Resolvers", ->
                     .returns
                         get: spy
             resolved = invoke BouncerResolvers.userResolver
+            resolved.should.equal promisedValue
+            spy.should.have.been.called
+
+    describe "CollectionListResolver", ->
+
+        it "Requests a list of collections from BouncerService", ->
+            promisedValue = name: "MyCollection"
+            spy = sinon.stub().returns $promise: promisedValue
+            inject (Bouncer) ->
+                sinon.stub Bouncer, 'collections'
+                    .returns
+                        query: spy
+            resolved = invoke BouncerResolvers.collectionListResolver
+            resolved.should.equal promisedValue
+            spy.should.have.been.called
+
+    describe "CollectionResolver", ->
+
+        it "Requests a collection from BouncerService", ->
+            promisedValue = name: "MyCollection"
+            spy = sinon.stub().returns $promise: promisedValue
+            inject (Bouncer) ->
+                sinon.stub Bouncer, 'collection'
+                    .returns
+                        stats: spy
+            resolved = invoke BouncerResolvers.collectionResolver
             resolved.should.equal promisedValue
             spy.should.have.been.called

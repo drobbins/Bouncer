@@ -7,9 +7,6 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
     .config ($stateProvider, $urlRouterProvider, BouncerResolvers) ->
         $urlRouterProvider.otherwise "/"
         $stateProvider
-            .state "Home",
-                url: "/"
-                template: ""
             .state "UserList",
                 url: "/users"
                 templateUrl: "templates/userlist.html"
@@ -30,3 +27,25 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 url: "/credentials"
                 templateUrl: "templates/credentials.html"
                 controller: "CredentialsController"
+            .state "CollectionAdd",
+                url: "/new"
+                templateUrl: "templates/collectionadd.html"
+                controller: "CollectionAddController"
+            .state "CollectionList",
+                url: "/"
+                templateUrl: "templates/collectionlist.html"
+                controller: "CollectionListController"
+                resolve:
+                    collections: BouncerResolvers.collectionListResolver
+            .state "CollectionView",
+                url: "/:name"
+                templateUrl: "templates/collectionview.html"
+                controller: "CollectionViewController"
+                resolve:
+                    collection: BouncerResolvers.collectionResolver
+    .factory "$stateReloadFix", ($state, $stateParams) ->
+        # Fix for https://github.com/angular-ui/ui-router/issues/582
+        $state.reload =  -> $state.transitionTo $state.current, angular.copy($stateParams),
+            reload: true
+            inherit: true
+            notify: true

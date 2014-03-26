@@ -60,13 +60,13 @@ describe "Unit Tests for BouncerService", () ->
         it "Get Collections", () ->
             httpBackend.expect "GET", credentials.endpoint, null, headersCheck
                 .respond 200
-            Bouncer.collections()
+            Bouncer.collections().query()
             httpBackend.flush()
 
         it "Add Collection", () ->
             httpBackend.expect "POST", credentials.endpoint, collection, headersCheck
                 .respond 201
-            Bouncer.collections(collection)
+            Bouncer.collections().save(collection)
             httpBackend.flush()
 
         it "Get a Collection", () ->
