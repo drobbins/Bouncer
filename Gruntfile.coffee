@@ -17,7 +17,7 @@ module.exports = (grunt) ->
                 tasks: ["build"]
             e2e:
                 files: ["index.html", "src/**/*", "test/**/*", "templates/**/*"]
-                tasks: ["build", "mongoimport", "protractor:all"]
+                tasks: ["build", "exec:dropMongoFixtures", "mongoimport", "protractor:all"]
 
         coffee:
             build:
