@@ -1,6 +1,6 @@
-describe "Unit Tests for BouncerService", () ->
+describe "BouncerService", ->
 
-  # Various test data
+  # Test data
     collection =
         name: "myCollection"
     credentials =
@@ -11,9 +11,7 @@ describe "Unit Tests for BouncerService", () ->
         id: "123"
 
   # Holders for injected items
-    Bouncer = {}
-    httpBackend = {}
-    documents = {}
+    Bouncer = $httpBackend = documents = null
 
   # Convenience Functions
     headersCheck = (headers) ->
@@ -21,166 +19,154 @@ describe "Unit Tests for BouncerService", () ->
 
     beforeEach angular.mock.module "Bouncer"
 
-    it "Existence", inject (Bouncer) ->
-        expect Bouncer
-            .not.to.equal(null)
-
-    it "Get/Set Credentials", inject (Bouncer) ->
-        credentials =
-            username: "test"
-            password: "abc123"
-            endpoint: "http://localhost:27080"
+    it "provides a function to get/set credentials.", inject (Bouncer) ->
         Bouncer.credentials credentials
         retrievedCredentials = Bouncer.credentials()
         retrievedCredentials.should.not.to.have.ownProperty "password" # Don't return password
         retrievedCredentials.username.should.equal credentials.username
         retrievedCredentials.endpoint.should.equal credentials.endpoint
 
-    it "Setting Credentials broadcasts bouncer.credentialsUpdated", inject (Bouncer, $rootScope) ->
-        credentials =
-            username: "test"
-            password: "abc123"
-            endpoint: "http://localhost:27080"
+    it "broadcasts bouncer.credentialsUpdated when credentials are updated.", inject (Bouncer, $rootScope) ->
         listener = sinon.stub()
         $rootScope.$on "bouncer.credentialsUpdated", listener
         Bouncer.credentials credentials
         listener.should.have.been.called
 
-    describe "Collections API", () ->
+    describe "Collections API", ->
 
-        beforeEach inject ($injector) ->
-            httpBackend = $injector.get "$httpBackend"
-            Bouncer = $injector.get "Bouncer"
+        beforeEach inject (_$httpBackend_, _Bouncer_) ->
+            $httpBackend = _$httpBackend_
+            Bouncer = _Bouncer_
             Bouncer.credentials credentials
 
-        afterEach () ->
-            httpBackend.verifyNoOutstandingExpectation()
-            httpBackend.verifyNoOutstandingRequest()
+        afterEach ->
+            $httpBackend.verifyNoOutstandingExpectation()
+            $httpBackend.verifyNoOutstandingRequest()
 
-        it "Get Collections", () ->
-            httpBackend.expect "GET", credentials.endpoint, null, headersCheck
+        it "Get Collections", ->
+            $httpBackend.expect "GET", credentials.endpoint, null, headersCheck
                 .respond 200
             Bouncer.collections().query()
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Add Collection", () ->
-            httpBackend.expect "POST", credentials.endpoint, collection, headersCheck
+        it "Add Collection", ->
+            $httpBackend.expect "POST", credentials.endpoint, collection, headersCheck
                 .respond 201
             Bouncer.collections().save(collection)
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Get a Collection", () ->
+        it "Get a Collection", ->
             col = Bouncer.collection(collection.name)
             col.stats.should.be.a "Function"
 
-        it "Collection Stats", () ->
-            httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}", null, headersCheck
+        it "Get Collection Stats", ->
+            $httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}", null, headersCheck
                 .respond 200
             col = Bouncer.collection(collection.name)
             col.stats()
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Update Collection", () ->
+        it "Update Collection", ->
             collection =
                 name: "mycollection"
-            httpBackend.expect "PUT", "#{credentials.endpoint}/#{collection.name}", collection, headersCheck
+            $httpBackend.expect "PUT", "#{credentials.endpoint}/#{collection.name}", collection, headersCheck
                 .respond 201
             Bouncer.updateCollection(collection)
-            httpBackend.flush()
+            $httpBackend.flush()
 
-    describe "Documents API", () ->
+    describe "Documents API", ->
 
-        beforeEach inject ($injector) ->
-            httpBackend = $injector.get "$httpBackend"
-            Bouncer = $injector.get "Bouncer"
+        beforeEach inject (_$httpBackend_, _Bouncer_) ->
+            $httpBackend = _$httpBackend_
+            Bouncer = _Bouncer_
             Bouncer.credentials credentials
             documents = Bouncer.collection(collection.name)
 
-        afterEach () ->
-            httpBackend.verifyNoOutstandingExpectation()
-            httpBackend.verifyNoOutstandingRequest()
+        afterEach ->
+            $httpBackend.verifyNoOutstandingExpectation()
+            $httpBackend.verifyNoOutstandingRequest()
 
-        it "Query Collection", () ->
+        it "Query Collection", ->
             query = {}
-            httpBackend.expect "POST", "#{credentials.endpoint}/#{collection.name}/query", query, headersCheck
+            $httpBackend.expect "POST", "#{credentials.endpoint}/#{collection.name}/query", query, headersCheck
                 .respond 200, []
-            docs = documents.query query, () ->
+            docs = documents.query query, ->
                 docs.length.should.equal 0
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Get document", () ->
-            httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}/#{document.id}", null, headersCheck
+        it "Get document", ->
+            $httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}/#{document.id}", null, headersCheck
                 .respond 200, {}
-            doc = documents.get document, () ->
+            doc = documents.get document, ->
                 doc.should.exist
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Get document field", () ->
+        it "Get document field", ->
             field = "name"
-            httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}/#{document.id}/#{field}", null, headersCheck
+            $httpBackend.expect "GET", "#{credentials.endpoint}/#{collection.name}/#{document.id}/#{field}", null, headersCheck
                 .respond 200, ""
             field = documents.get
                 id: document.id
                 field: field
-                () ->
+                ->
                     field.should.exist
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Add document to collection", () ->
-            httpBackend.expect "POST", "#{credentials.endpoint}/#{collection.name}", document, headersCheck
+        it "Add document to collection", ->
+            $httpBackend.expect "POST", "#{credentials.endpoint}/#{collection.name}", document, headersCheck
                 .respond 201
-            doc = documents.save document, () ->
+            doc = documents.save document, ->
                 doc.should.be.an.instanceof documents #i.e. a resource
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Update document", () ->
-            httpBackend.expect "PUT", "#{credentials.endpoint}/#{collection.name}/#{document.id}", document, headersCheck
+        it "Update document", ->
+            $httpBackend.expect "PUT", "#{credentials.endpoint}/#{collection.name}/#{document.id}", document, headersCheck
                 .respond 200
             documents.update document
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Delete document", () ->
-            httpBackend.expect "DELETE", "#{credentials.endpoint}/#{collection.name}/#{document.id}", null, headersCheck
+        it "Delete document", ->
+            $httpBackend.expect "DELETE", "#{credentials.endpoint}/#{collection.name}/#{document.id}", null, headersCheck
                 .respond 200
             documents.delete document
-            httpBackend.flush()
+            $httpBackend.flush()
 
-    describe "Bouncer Users", () ->
+    describe "Bouncer Users", ->
 
         Users = {}
 
-        beforeEach inject ($injector) ->
-            httpBackend = $injector.get "$httpBackend"
-            Bouncer = $injector.get "Bouncer"
+        beforeEach inject (_$httpBackend_, _Bouncer_) ->
+            $httpBackend = _$httpBackend_
+            Bouncer = _Bouncer_
             Bouncer.credentials credentials
             Users = Bouncer.users()
 
-        afterEach () ->
-            httpBackend.verifyNoOutstandingExpectation()
-            httpBackend.verifyNoOutstandingRequest()
+        afterEach ->
+            $httpBackend.verifyNoOutstandingExpectation()
+            $httpBackend.verifyNoOutstandingRequest()
 
-        it "Get users", () ->
-            httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users", null, headersCheck
+        it "Get users", ->
+            $httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users", null, headersCheck
                 .respond 200, {}
-            users = Users.query () ->
+            users = Users.query ->
                 users.should.exist
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Get user", () ->
+        it "Get user", ->
             userId = "123"
-            httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users/#{userId}", null, headersCheck
+            $httpBackend.expect "GET", "#{credentials.endpoint}/bounce.users/#{userId}", null, headersCheck
                 .respond 200, {}
-            user = Users.get id: userId, () ->
+            user = Users.get id: userId, ->
                 user.should.be.an.instanceof Users
-            httpBackend.flush()
+            $httpBackend.flush()
 
-        it "Register user", () ->
+        it "Register user", ->
             user =
                 username: "tester"
                 password: "testing"
-            httpBackend.expect "POST", "#{credentials.endpoint}/bounce.users", user, headersCheck
+            $httpBackend.expect "POST", "#{credentials.endpoint}/bounce.users", user, headersCheck
                 .respond 201
-            user = Users.save user, () ->
+            user = Users.save user, ->
                 user.should.be.an.instanceof Users
-            httpBackend.flush()
+            $httpBackend.flush()
 
