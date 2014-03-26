@@ -4,12 +4,12 @@ describe "CollectionViewController", ->
     collection = name: "CollectionMcCollection"
 
     beforeEach ->
-        angular.mock.module "Bouncer"
+        module "Bouncer"
         inject ($rootScope, $controller) ->
             $scope = $rootScope.$new()
             CollectionViewController = $controller "CollectionViewController",
                 $scope: $scope
                 collection: collection
 
-    it "Places resolved collections on the $scope", ->
+    it "places resolved collections on the $scope", ->
         $scope.collection.should.equal collection

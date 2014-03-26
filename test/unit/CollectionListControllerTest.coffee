@@ -4,17 +4,17 @@ describe "CollectionListController", ->
     collections = ["collection1", "collection2"]
 
     beforeEach ->
-        angular.mock.module "Bouncer"
+        module "Bouncer"
         inject ($rootScope, $controller) ->
             $scope = $rootScope.$new()
             CollectionListController = $controller "CollectionListController",
                 $scope: $scope
                 collections: collections
 
-    it "Places resolved collections on the $scope", ->
+    it "places resolved collections on the $scope", ->
         $scope.collections.should.equal collections
 
-    it "Provides a function for deleting collections", ->
+    it "provides a function for deleting collections", ->
         stub = sinon.stub()
         inject (Bouncer) ->
             sinon.stub Bouncer, "collection"

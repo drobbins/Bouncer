@@ -13,7 +13,7 @@ describe "UserAddController", ->
             UserAddController = $controller "UserAddController",
                 $scope: $scope
 
-    it "Provides a function to add a user", ->
+    it "provides a function to add a user", ->
         $scope.addUser
             username: "TestBob"
             password: "TestPass"
