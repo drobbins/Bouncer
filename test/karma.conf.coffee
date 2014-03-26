@@ -13,7 +13,7 @@ module.exports = (config) ->
             "test/**/*.coffee"
         ]
         frameworks: ["mocha", "sinon-chai"]
-        reporters: ['progress']
+        reporters: ['dots']
         port: 9876
         colors: true
         logLevel: config.LOG_INFO

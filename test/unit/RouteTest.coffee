@@ -30,16 +30,16 @@ describe "Bouncer Routes", ->
                 done()
         tick()
 
-    it "UserList Route", ->
+    it "List Users", ->
         userListRoute = $state.get "UserList"
         userListRoute.controller.should.equal "UserListController"
         userListRoute.resolve.users.should.equal BouncerResolvers.userListResolver
 
-    it "UserAdd Route", ->
+    it "Add User", ->
         userAddRoute = $state.get "UserAdd"
         userAddRoute.controller.should.equal "UserAddController"
 
-    it "UserView Route", ->
+    it "View User", ->
         userViewRoute = $state.get "UserView"
         userViewRoute.controller.should.equal "UserViewController"
         userViewRoute.resolve.user.should.equal BouncerResolvers.userResolver
