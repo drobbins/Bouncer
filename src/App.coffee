@@ -43,3 +43,9 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 controller: "CollectionViewController"
                 resolve:
                     collection: BouncerResolvers.collectionResolver
+    .run ($state, $stateParams) ->
+        # Fix for https://github.com/angular-ui/ui-router/issues/582
+        $state.reload =  -> $state.transitionTo $state.current, angular.copy($stateParams),
+            reload: true
+            inherit: true
+            notify: true
