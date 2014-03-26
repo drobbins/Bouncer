@@ -82,6 +82,10 @@ module.exports = (grunt) ->
             unit:
                 configFile: "test/karma.conf.coffee"
 
+        exec:
+            dropMongoFixtures:
+                cmd: "mongo bounce-test --eval \"printjson(db.dropDatabase())\""
+
         mongoimport:
             options:
                 db: "bounce-test"
@@ -108,6 +112,7 @@ module.exports = (grunt) ->
         "grunt-karma"
         "grunt-html2js"
         "grunt-mongoimport"
+        "grunt-exec"
     ]
 
     grunt.registerTask "build", [
@@ -127,6 +132,7 @@ module.exports = (grunt) ->
 
     grunt.registerTask "e2e", [
         "build"
+        "exec:dropMongoFixtures"
         "mongoimport"
         "connect:dist"
         "protractor:all"
