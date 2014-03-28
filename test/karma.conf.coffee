@@ -8,6 +8,7 @@ module.exports = (config) ->
             "bower_components/angular-ui-router/release/angular-ui-router.js"
             "bower_components/angular-resource/angular-resource.js"
             "bower_components/angular-mocks/angular-mocks.js"
+            "bower_components/Bounce/client/browser/bounce.js"
           # My Files
             "src/**/*.coffee"
             "test/**/*.coffee"
