@@ -18,15 +18,9 @@ angular.module "Bouncer"
                     deployment: credentials.deployment
             db: -> db
             getResource: (resource) ->
-                def = $q.defer()
-                db.getResource resource, (err, results) ->
-                    if err? then def.reject err else def.resolve results
-                def.promise
+                makePromise db.getResource, resource
             updateResource: (resource, body) ->
-                def = $q.defer()
-                db.updateResource resource, body, (err, results) ->
-                    if err? then def.reject err else def.resolve results
-                def.promise
+                makePromise db.updateResource, resource, body
             utils:
                 makePromise: (fn, args...) ->
                     def = $q.defer()
@@ -34,3 +28,7 @@ angular.module "Bouncer"
                         if err? then def.reject err else def.resolve results
                     fn.apply @, args
                     def.promise
+
+        makePromise = api.utils.makePromise
+
+        api
