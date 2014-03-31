@@ -1,4 +1,4 @@
-describe "Bouncer Routes", ->
+describe "Bouncer Routes:", ->
 
     BouncerResolvers = $state = null
 
@@ -37,3 +37,7 @@ describe "Bouncer Routes", ->
             collectionViewRoute = $state.get "CollectionView"
             collectionViewRoute.controller.should.equal "CollectionViewController"
             collectionViewRoute.resolve.collection.should.equal BouncerResolvers.collectionResolver
+
+    it "The ResourceView route", ->
+        resourceViewRoute = $state.get "ResourceView"
+        resourceViewRoute.controller.should.equal "ResourceViewController"

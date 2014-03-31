@@ -8,3 +8,5 @@ angular.module "Bouncer"
             Bouncer.collections().query().$promise
         collectionResolver: ($stateParams, Bouncer) ->
             Bouncer.collection($stateParams.name).stats().$promise
+        resourceResolver: ($stateParams, Bounce) ->
+            Bounce.getResource($stateParams.resource)

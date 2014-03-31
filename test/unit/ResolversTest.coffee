@@ -1,12 +1,13 @@
 describe "Resolvers", ->
 
-    BouncerResolvers = Bouncer = invoke = null
+    BouncerResolvers = Bouncer = Bounce = invoke = null
 
     beforeEach module "Bouncer"
 
-    beforeEach inject (_BouncerResolvers_, _Bouncer_, $injector) ->
+    beforeEach inject (_BouncerResolvers_, _Bouncer_, _Bounce_, $injector) ->
         BouncerResolvers = _BouncerResolvers_
         Bouncer = _Bouncer_
+        Bounce = _Bounce_
         invoke = $injector.invoke
 
     testResolver = (resolver, resource, method, promisedValue) ->
@@ -30,3 +31,10 @@ describe "Resolvers", ->
 
     it "collectionResolver requests a collection from Bouncer service", ->
         testResolver "collectionResolver", "collection", "stats", { name: "MyCollection" }
+
+    it "resourceResolver gets a resource from Bounce service.", ->
+        promisedValue = "MyResource"
+        stub = sinon.stub Bounce, "getResource"
+            .returns promisedValue
+        resolvedValue = invoke BouncerResolvers.resourceResolver
+        stub.should.have.been.called

@@ -43,6 +43,11 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 controller: "CollectionViewController"
                 resolve:
                     collection: BouncerResolvers.collectionResolver
+            .state "ResourceView",
+                url: "/"
+                controller: "ResourceViewController"
+                templateUrl: "templates/resourceview.html"
+
     .factory "$stateReloadFix", ($state, $stateParams) ->
         # Fix for https://github.com/angular-ui/ui-router/issues/582
         $state.reload =  -> $state.transitionTo $state.current, angular.copy($stateParams),
