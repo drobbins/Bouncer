@@ -28,11 +28,12 @@ describe "The Bounce service", ->
             listener.should.have.been.called
 
         it "creating a db with the provided credentials.", inject ($window) ->
-            expect(Bounce.db()).to.be.null
             spy = sinon.spy $window, "bounce"
             Bounce.credentials credentials
             spy.should.have.been.calledWith credentials
-            expect(Bounce.db()).not.to.be.null
+
+        it "creates a db with the default deployment", ->
+            Bounce.db().should.not.be.null
 
     describe "provides a resource API:", ->
 

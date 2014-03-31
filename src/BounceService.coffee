@@ -4,7 +4,7 @@ angular.module "Bouncer"
         credentials =
             deployment: "http://localhost:27080"
 
-        db = null
+        db = $window.bounce credentials
 
         api =
             credentials: (_) ->

@@ -1,0 +1,5 @@
+<ol class="breadcrumb">
+    <li ng-repeat="breadcrumb in breadcrumbs">
+    <a ui-sref="ResourceView({resource: breadcrumb.resource})" title="{{breadcrumb.title}}" ng-bind="breadcrumb.name"></a>
+    </li>
+</ol>

@@ -5,7 +5,7 @@ catch
 
 angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
     .config ($stateProvider, $urlRouterProvider, BouncerResolvers) ->
-        $urlRouterProvider.otherwise "/"
+        $urlRouterProvider.otherwise "/?resource=/"
         $stateProvider
             .state "UserList",
                 url: "/users"
@@ -32,13 +32,13 @@ angular.module "Bouncer", ["ngResource", "ui.router", "BouncerTemplates"]
                 templateUrl: "templates/collectionadd.html"
                 controller: "CollectionAddController"
             .state "CollectionList",
-                url: "/"
+                url: "/Collections"
                 templateUrl: "templates/collectionlist.html"
                 controller: "CollectionListController"
                 resolve:
                     collections: BouncerResolvers.collectionListResolver
             .state "CollectionView",
-                url: "/:name"
+                url: "/Collections/:name"
                 templateUrl: "templates/collectionview.html"
                 controller: "CollectionViewController"
                 resolve:
