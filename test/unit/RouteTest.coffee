@@ -8,28 +8,6 @@ describe "Bouncer Routes", ->
         $state = _$state_
         BouncerResolvers = _BouncerResolvers_
 
-    # Early attempt at stubbing out controller and resolver...didn't work out.
-    xit "UserList Route", (done) ->
-        controllerStub = sinon.stub()
-        resolverStub = sinon.stub()
-        $state = tick = null
-        module ($controllerProvider) ->
-            $controllerProvider.register "UserListController", controllerStub
-        module ($provide) ->
-            $provide.constant "BouncerResolvers",
-                userListResolver: resolverStub
-        inject (_$state_, $q, BouncerResolvers) ->
-            $state = _$state_
-            tick = $q.flush
-            BouncerResolvers.userListResolver.should.equal resolverStub
-        $state.go "UserList"
-            .then ->
-                controllerStub.should.have.been.called
-                resolverStub.should.have.been.called
-                expect(true).to.equal false
-                done()
-        tick()
-
     it "List Users", ->
         userListRoute = $state.get "UserList"
         userListRoute.controller.should.equal "UserListController"
