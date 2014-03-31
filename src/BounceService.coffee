@@ -10,7 +10,7 @@ angular.module "Bouncer"
             credentials: (_) ->
                 if _
                     credentials = _
-                    $rootScope.$broadcast "bouncer.credentialsUpdated", api.credentials
+                    $rootScope.$broadcast "bouncer.credentialsUpdated", api.credentials()
                     db = $window.bounce credentials
                     api
                 else

@@ -1,7 +1,7 @@
 angular.module "Bouncer"
-    .controller "CredentialsController", ($scope, Bouncer) ->
-        $scope.credentials = Bouncer.credentials()
+    .controller "CredentialsController", ($scope, Bounce) ->
+        $scope.credentials = Bounce.credentials()
         $scope.setCredentials = (credentials) ->
-            Bouncer.credentials credentials
+            Bounce.credentials credentials
         $scope.$on "bouncer.credentialsUpdated", (event,credentials) ->
             $scope.credentials = credentials
