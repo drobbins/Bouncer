@@ -44,15 +44,58 @@ describe "The Bounce service", ->
         it "getResource wraps bounce.getResource in a promise.", -> #TODO Fewer assertions maybe?
             spy = sinon.spy db, "getResource"
             promise = Bounce.getResource "/"
+            promise.then.should.be.a "function"             # Check for promise api
+            spy.should.have.been.calledWith "/"             # Check passthrough of original arguments
+            spy.firstCall.args[1].should.be.a "function"    # Last argument should be a callback
+
+        it "updateResource wraps bounce.updateResource in a promise.", ->
+            spy = sinon.spy db, "updateResource"
+            promise = Bounce.updateResource "/", field: "Value"
+            promise.then.should.be.a "function"
+            spy.should.have.been.calledWith "/", field: "Value"
+            spy.firstCall.args[2].should.be.a "function"
+
+        it "deleteResource wraps bounce.deleteResource in a promise.", ->
+            spy = sinon.spy db, "deleteResource"
+            promise = Bounce.deleteResource "/"
             promise.then.should.be.a "function"
             spy.should.have.been.calledWith "/"
-            spy.firstCall.args[0].should.equal "/"
             spy.firstCall.args[1].should.be.a "function"
 
-        it "updateResource wraps bounce.updateResource in a promise", ->
-            spy = sinon.spy db, "updateResource"
-            promise = Bounce.updateResource "/", name: "NewName"
+        it "addResource wraps bounce.addResource in a promise (JSON).", ->
+            spy = sinon.spy db, "addResource"
+            promise = Bounce.addResource "/", field: "Value"
             promise.then.should.be.a "function"
+            spy.should.have.been.calledWith "/", field: "Value"
+            spy.firstCall.args[2].should.be.a "function"
+
+        it "addResource wraps bounce.addResource in a promise (Blob).", ->
+            spy = sinon.spy db, "addResource"
+            promise = Bounce.addResource "/", "Hello World", "text/plain"
+            promise.then.should.be.a "function"
+            spy.should.have.been.calledWith "/", "Hello World", "text/plain"
+            spy.firstCall.args[3].should.be.a "function"
+
+        it "queryResource wraps bounce.queryResource in a promise (JSON).", ->
+            spy = sinon.spy db, "queryResource"
+            promise = Bounce.queryResource "/", field: "Value"
+            promise.then.should.be.a "function"
+            spy.should.have.been.calledWith "/", field: "Value"
+            spy.firstCall.args[2].should.be.a "function"
+
+        it "getPermissions wraps bounce.getPermissions in a promise.", ->
+            spy = sinon.spy db, "getPermissions"
+            promise = Bounce.getPermissions "/"
+            promise.then.should.be.a "function"
+            spy.should.have.been.calledWith "/"
+            spy.firstCall.args[1].should.be.a "function"
+
+        it "updatePermissions wraps bounce.updatePermissions in a promise.", ->
+            spy = sinon.spy db, "updatePermissions"
+            promise = Bounce.updatePermissions "/", field: "Value"
+            promise.then.should.be.a "function"
+            spy.should.have.been.calledWith "/", field: "Value"
+            spy.firstCall.args[2].should.be.a "function"
 
     describe "provides a utility makePromise which", ->
 
@@ -92,4 +135,3 @@ describe "The Bounce service", ->
         username: "TestBob"
         password: "password"
         deployment: "http://localhost:27080"
-

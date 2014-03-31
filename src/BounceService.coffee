@@ -21,6 +21,19 @@ angular.module "Bouncer"
                 makePromise db.getResource, resource
             updateResource: (resource, body) ->
                 makePromise db.updateResource, resource, body
+            deleteResource: (resource) ->
+                makePromise db.deleteResource, resource
+            addResource: (resource, body, contentType) ->
+                if contentType # Only applicable for blobs
+                    makePromise db.addResource, resource, body, contentType
+                else
+                    makePromise db.addResource, resource, body
+            queryResource: (resource, query) ->
+                makePromise db.queryResource, resource, query
+            getPermissions: (resource) ->
+                makePromise db.getPermissions, resource
+            updatePermissions: (resource, body) ->
+                makePromise db.updatePermissions, resource, body
             utils:
                 makePromise: (fn, args...) ->
                     def = $q.defer()
