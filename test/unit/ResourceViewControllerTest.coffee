@@ -15,3 +15,13 @@ describe "ResourceViewController", ->
 
     it "maps the resolved resource onto the scope.", ->
         $scope.resource.should.equal resource
+
+    it "identifies the type of resource for deployments.", inject ($controller) ->
+        scope = {}
+        resource =
+            _links: self: href: "/"
+        $controller "ResourceViewController",
+            $scope: scope
+            resource: resource
+        scope.resourceType.should.equal "deployment"
+

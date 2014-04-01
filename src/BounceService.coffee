@@ -2,6 +2,8 @@ angular.module "Bouncer"
     .factory "Bounce", ($rootScope, $window, $q) ->
 
         credentials =
+            username: "TestBob"
+            password: "password"
             deployment: "http://localhost:27080"
 
         db = $window.bounce credentials
