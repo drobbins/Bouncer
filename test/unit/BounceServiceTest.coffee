@@ -38,6 +38,12 @@ describe "The Bounce service", ->
 
         db = null
 
+        before ->
+            this.xhr = sinon.useFakeXMLHttpRequest()
+
+        after ->
+            this.xhr.restore()
+
         beforeEach ->
             db = Bounce.credentials(credentials).db()
 
